@@ -1,13 +1,16 @@
 import Image from "next/image"
 
-export default function Home() {
+export default function Home({ title }: Readonly<{ title: string }>) {
     return (
         <main className="bg-[#faf8f6] min-h-screen">
             {/* Hero Section */}
             <section className="text-center py-20 px-6 bg-[#f5efe6]">
                 <h1 className="text-5xl font-serif mb-6 text-[#3d2b1f]">
-                    Brunch. Coffee. Wander.
+                    {title}
                 </h1>
+
+                {/*<article dangerouslySetInnerHTML={{ __html: page.content }} />*/}
+
                 <p className="text-[#5b4636] text-lg max-w-2xl mx-auto leading-relaxed">
                     A visual journal of our favorite cafés, brunch spots, and travel stories —
                     from the laneways of Melbourne to wherever our cups take us.

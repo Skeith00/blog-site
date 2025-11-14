@@ -1,5 +1,6 @@
 // src/app/layout.tsx
-import "./globals.css"
+import "@/styles/globals.css"
+
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { Playfair_Display, Inter } from "next/font/google"

@@ -9,6 +9,7 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Pages } from "./collections/Pages"
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -17,15 +18,28 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     importMap: {
-      baseDir: path.resolve(dirname),
+      baseDir: path.resolve(dirname, 'src'),
     },
+    livePreview: {
+      url: 'http://localhost:3000/blog',
+      collections: ['pages'],
+    },
+    /*components: {
+      logout: {
+        Button: {
+          path: '/src/components/Logout',
+          exportName: 'MyComponent',
+        },
+      },
+    },*/
   },
-  collections: [Users, Media],
+  collections: [Pages, Users, Media],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  serverURL: process.env.NEXT_PUBLIC_PAYLOAD_URL,
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),

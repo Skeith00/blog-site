@@ -1,10 +1,14 @@
-import Home from "@/components/Home"
-import config from '../../../payload.config'
+import config from '@/payload.config'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import React from 'react'
+import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 
-import type { Page as PageType } from '../../../payload-types'
+import type { Page as PageType } from '@/payload-types'
+import Hero from "@/components/Hero";
+import FeaturedPosts from "@/components/FeaturedPosts";
+import About from "@/components/About";
+import RichTextComponent from "@/components/RichText";
 
 /*async function getPageData(slug: string) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/pages?where[slug][equals]=${slug}`, {
@@ -27,7 +31,7 @@ export default async function Page({ params: paramsPromise }: PageParams) {
 
     const pageRes = await payload.find({
         collection: 'pages',
-        draft: false,
+        draft: true,
         limit: 1,
         overrideAccess: false,
         where: {
@@ -45,7 +49,23 @@ export default async function Page({ params: paramsPromise }: PageParams) {
 
     return (
         <React.Fragment>
-            <Home title={page.title} />
+            <RefreshRouteOnSave />
+            <main className="bg-[#faf8f6] min-h-screen">
+                {page.layout?.map((block) => {
+                    switch (block.blockType) {
+                        case "hero":
+                            return <Hero key={block.id} {...block} />;
+                        case "richText":
+                            return <RichTextComponent key={block.id} {...block} />;
+                        case "featuredPosts":
+                            return <FeaturedPosts key={block.id} {...block} />;
+                        case "about":
+                            return <About key={block.id} {...block} />;
+                        default:
+                            return null;
+                    }
+                })}
+            </main>
         </React.Fragment>
     )
 }

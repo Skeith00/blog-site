@@ -12,7 +12,7 @@ import { Media } from './collections/Media'
 import { Pages } from "./collections/Pages"
 
 const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
+const dirname = path.dirname (filename)
 
 export default buildConfig({
   admin: {
@@ -20,11 +20,11 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname, 'src'),
     },
-    livePreview: {
-      url: 'http://localhost:3000/blog',
+    /*livePreview: {
+      url: process.env.NEXT_PUBLIC_PAYLOAD_URL,
       collections: ['pages'],
     },
-    /*components: {
+    components: {
       logout: {
         Button: {
           path: '/src/components/Logout',

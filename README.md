@@ -2,7 +2,20 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+First, create a `.env` file in the root of the project. Example:
+
+```bash
+PAYLOAD_SECRET=f76f28481b3050eb194c81a1
+DATABASE_URI=mongodb://127.0.0.1/blog-site
+NEXT_PUBLIC_PAYLOAD_URL=http://localhost:3000
+```
+
+Run the following command to start MongoDB:
+```bash
+docker-compose up
+````
+
+Run the development server:
 
 ```bash
 npm run dev
@@ -14,7 +27,10 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Payload will be available at:
+* Admin UI: http://localhost:3000/admin
+* API: http://localhost:3000/api
+
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

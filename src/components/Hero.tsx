@@ -1,27 +1,39 @@
 import {Media} from "@/payload-types";
+import '../styles/hero.css'
 
-export default function Hero({ title, subtitle, linkTitle }: Readonly<{ title: string, subtitle: string, linkTitle: string, backgroundImage?: Media | null;
-}>) {
+type HeroProps = {
+    title: string
+    subtitle: string
+    backgroundImage?: Media
+}
+
+export default function Hero({ title, subtitle, backgroundImage }: HeroProps) {
     return (
         <>
             {/* Hero Section */}
-            <section className="text-center py-20 px-6 bg-[#f5efe6]">
-                <h1 className="text-5xl font-serif mb-6 text-[#3d2b1f]">
-                    {title}
-                </h1>
+            <section
+                className="relative text-center py-20 px-6"
+                //className="text-center py-20 px-6 bg-[#f5efe6]"
+                //className="relative min-h-[80vh] flex items-center"
+                style={{
+                    backgroundImage: backgroundImage?.url
+                        ? `url(${backgroundImage.url})`
+                        : undefined,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                }}>
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 hero-gradient" />
 
-                {/*<article dangerouslySetInnerHTML={{ __html: page.content }} />*/}
+                {/* Content */}
+                <div className="relative z-10">
+                    <h1 className="text-5xl font-serif mb-6 text-white hero-title">
+                        {title}
+                    </h1>
 
-                <p className="text-[#5b4636] text-lg max-w-2xl mx-auto leading-relaxed">
-                    {subtitle}
-                </p>
-                <div className="mt-10">
-                    <a
-                        href="/blog"
-                        className="px-8 py-3 bg-[#3d2b1f] text-[#fdfaf7] rounded-full hover:bg-[#2a1d14] transition"
-                    >
-                        {linkTitle}
-                    </a>
+                    <p className="text-lg max-w-2xl mx-auto leading-relaxed text-white hero-subtitle">
+                        {subtitle}
+                    </p>
                 </div>
             </section>
         </>

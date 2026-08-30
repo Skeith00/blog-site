@@ -129,7 +129,6 @@ export interface Page {
         | {
             title: string;
             subtitle: string;
-            linkTitle: string;
             backgroundImage?: (string | null) | Media;
             id?: string | null;
             blockName?: string | null;
@@ -313,7 +312,6 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               title?: T;
               subtitle?: T;
-              linkTitle?: T;
               backgroundImage?: T;
               id?: T;
               blockName?: T;

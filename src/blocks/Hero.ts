@@ -18,11 +18,6 @@ export const Hero: Block = {
             required: true,
         },
         {
-            name: "linkTitle",
-            type: "text",
-            required: true,
-        },
-        {
             name: "backgroundImage",
             type: "upload",
             relationTo: "media",

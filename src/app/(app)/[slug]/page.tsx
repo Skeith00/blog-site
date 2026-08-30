@@ -9,6 +9,7 @@ import Hero from "@/components/Hero";
 import FeaturedPosts from "@/components/FeaturedPosts";
 import About from "@/components/About";
 import RichTextComponent from "@/components/RichText";
+import {blockComponents} from "@/components/ComponentsMapping";
 
 /*async function getPageData(slug: string) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/pages?where[slug][equals]=${slug}`, {
@@ -29,7 +30,7 @@ export default async function Page({ params: paramsPromise }: PageParams) {
     const { slug = 'home' } = await paramsPromise
     const payload = await getPayload({ config })
 
-    const pageRes = await payload.find({
+    const pageRes = await payload.find<'pages'>({
         collection: 'pages',
         draft: true,
         limit: 1,
@@ -52,18 +53,11 @@ export default async function Page({ params: paramsPromise }: PageParams) {
             <RefreshRouteOnSave />
             <main className="bg-[#faf8f6] min-h-screen">
                 {page.layout?.map((block) => {
-                    switch (block.blockType) {
-                        case "hero":
-                            return <Hero key={block.id} {...block} />;
-                        case "richText":
-                            return <RichTextComponent key={block.id} {...block} />;
-                        case "featuredPosts":
-                            return <FeaturedPosts key={block.id} {...block} />;
-                        case "about":
-                            return <About key={block.id} {...block} />;
-                        default:
-                            return null;
-                    }
+                    const BlockComponent = blockComponents[block.blockType]
+
+                    if (!BlockComponent) return null
+
+                    return <BlockComponent key={block.id} {...block} />
                 })}
             </main>
         </React.Fragment>
